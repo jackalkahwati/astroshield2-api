@@ -22,12 +22,10 @@ app = FastAPI()
 # Add CORS middleware with more permissive settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://astroshield2.vercel.app"],  # Only allow the frontend domain
-    allow_credentials=True,  # Enable credentials
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_origins=["*"],  # Allow all origins in development
+    allow_credentials=True,
+    allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"],
-    max_age=86400
 )
 
 # Global settings store (in a real app, this would be in a database)
