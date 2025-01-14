@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Initialize FastAPI app
-app = FastAPI()
+app = FastAPI(root_path="/api")
 
 # Add CORS middleware with more permissive settings
 app.add_middleware(
@@ -218,6 +218,7 @@ async def get_maneuvers():
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
 # Configure handler for Vercel serverless deployment
-handler = Mangum(app)
+handler = Mangum(app, lifespan="off")
 
-# Remove the redundant app assignment 
+# Export the app and handler for Vercel
+app = app 
