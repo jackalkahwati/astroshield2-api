@@ -213,8 +213,7 @@ async def get_maneuvers():
         logger.error(traceback.format_exc())
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
-# Update the Mangum handler with specific configuration for Vercel
-handler = Mangum(app, lifespan="off")
+# Configure handler for Vercel serverless deployment
+handler = Mangum(app)
 
-# Add this line to ensure the ASGI app is properly exposed
-app = app 
+# Remove the redundant app assignment 
