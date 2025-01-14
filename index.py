@@ -16,7 +16,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Initialize FastAPI app without root_path (Vercel will handle this)
+# Initialize FastAPI app
 app = FastAPI()
 
 # Add CORS middleware with more permissive settings
@@ -218,10 +218,14 @@ async def get_maneuvers():
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
 # Configure handler for Vercel serverless deployment
-handler = Mangum(app)
+handler = Mangum(app, lifespan="off")
 
-# Export handler for Vercel
-__all__ = ['handler']
+# Make sure the handler is properly exposed for Vercel
+def handle(event, context):
+    return handler(event, context)
+
+# Export the handler function
+__all__ = ['handle']
 
 # Make sure we don't reassign app
 # app = app  # Remove this line 
