@@ -54,7 +54,11 @@ async def logging_middleware(request: Request, call_next):
 
 @app.get("/api")
 async def read_root():
-    return {"message": "Welcome to AstroShield API"}
+    return {
+        "message": "Welcome to AstroShield API",
+        "version": "1.0.1",
+        "status": "operational"
+    }
 
 @app.get("/api/settings")
 async def get_settings():
