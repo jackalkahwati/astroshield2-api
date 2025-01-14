@@ -50,7 +50,7 @@ async def logging_middleware(request: Request, call_next):
             content={"detail": str(e)}
         )
 
-@app.get("/api")
+@app.get("/")
 async def read_root():
     return {
         "message": "Welcome to AstroShield API",
