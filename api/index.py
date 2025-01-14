@@ -24,4 +24,5 @@ async def health_check():
         "timestamp": str(datetime.utcnow())
     }
 
-handler = Mangum(app)
+# Configure Mangum handler with specific settings for Vercel
+handler = Mangum(app, lifespan="off", api_gateway_base_path=None)
