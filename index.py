@@ -218,7 +218,10 @@ async def get_maneuvers():
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
 # Configure handler for Vercel serverless deployment
-handler = Mangum(app, lifespan="off")
+handler = Mangum(app)
+
+# Export handler for Vercel
+__all__ = ['handler']
 
 # Make sure we don't reassign app
 # app = app  # Remove this line 
