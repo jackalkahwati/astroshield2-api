@@ -22,8 +22,8 @@ app = FastAPI()
 # Add CORS middleware with more permissive settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins
-    allow_credentials=False,  # Must be False when allow_origins=["*"]
+    allow_origins=["https://astroshield2.vercel.app"],  # Only allow the frontend domain
+    allow_credentials=True,  # Enable credentials
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
     expose_headers=["*"],
@@ -217,7 +217,7 @@ async def get_maneuvers():
         logger.error(traceback.format_exc())
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
-# Configure handler for Vercel serverless deployment
+# Export the handler for Vercel
 handler = Mangum(app, lifespan="off")
 
 # Make sure the handler is properly exposed for Vercel

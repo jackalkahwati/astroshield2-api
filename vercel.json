@@ -9,13 +9,18 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "index.py"
+      "dest": "index.py",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "https://astroshield2.vercel.app",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Max-Age": "86400"
+      }
     }
   ],
-  "functions": {
-    "index.py": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
+  "env": {
+    "FRONTEND_URL": "https://astroshield2.vercel.app"
   }
 } 
