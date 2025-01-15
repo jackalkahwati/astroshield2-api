@@ -1,28 +1,10 @@
 from fastapi import FastAPI
 from mangum import Mangum
-from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
 
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
-
 @app.get("/")
-async def root():
-    return {"message": "Hello from AstroShield on Vercel!"}
+def read_root():
+    return {"message": "Hello from AstroShield"}
 
-@app.get("/health")
-async def health_check():
-    return {
-        "status": "healthy",
-        "timestamp": str(datetime.utcnow())
-    }
-
-# Configure Mangum handler with specific settings for Vercel
-handler = Mangum(app, lifespan="off", api_gateway_base_path=None)
+handler = Mangum(app, lifespan="off")
