@@ -1,10 +1,17 @@
 from fastapi import FastAPI
-from mangum import Mangum
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello from AstroShield"}
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
-handler = Mangum(app, lifespan="off")
+@app.get("/")
+async def root():
+    return {"status": "ok", "message": "AstroShield API is running"}
